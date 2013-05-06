@@ -72,7 +72,7 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
             define('DB_HOSTNAME', '" . $db[$active_group]['hostname'] ."');
             define('DB_USERNAME', '" . $db[$active_group]['username'] ."');
             define('DB_PASSWORD', '" . $db[$active_group]['password'] ."');
-            define('DB_DATABASE',  '" . $this->domainName ."');
+            define('DB_DATABASE',  '" . $db[$active_group]['toko_dbprefix'] . '_' . $this->domainName ."');
             define('DB_PREFIX', 'oc_');
             ";
         
