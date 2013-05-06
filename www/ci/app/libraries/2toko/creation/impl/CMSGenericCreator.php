@@ -15,7 +15,7 @@ class CMSGenericCreator {
         
         public $domainName;
         public $tokoPath = "tokos"; // base folder for each toko
-        public $serverDomain = "test.com"; // base domain of the server
+        public $serverDomain = "localhost.com"; // base domain of the server
 
         public function __construct($userId, $admin, $password, $cmsObj, $domainName) {
             $this->userId = $userId;

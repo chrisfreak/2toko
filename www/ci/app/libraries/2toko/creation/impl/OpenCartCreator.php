@@ -56,16 +56,16 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
             define('HTTPS_IMAGE', 'https://$this->domainName.$this->serverDomain/image/');
 
             // DIR
-            define('DIR_APPLICATION', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/catalog/');
-            define('DIR_SYSTEM', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/system/');
-            define('DIR_DATABASE', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/system/database/');
-            define('DIR_LANGUAGE', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/catalog/language/');
-            define('DIR_TEMPLATE', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/catalog/view/theme/');
-            define('DIR_CONFIG', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/system/config/');
-            define('DIR_IMAGE', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/image/');
-            define('DIR_CACHE', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/system/cache/');
-            define('DIR_DOWNLOAD', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/download/');
-            define('DIR_LOGS', '" . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath/system/logs/');
+            define('DIR_APPLICATION', 'catalog/');
+            define('DIR_SYSTEM', 'system/');
+            define('DIR_DATABASE', 'system/database/');
+            define('DIR_LANGUAGE', 'catalog/language/');
+            define('DIR_TEMPLATE', 'catalog/view/theme/');
+            define('DIR_CONFIG', 'system/config/');
+            define('DIR_IMAGE', 'image/');
+            define('DIR_CACHE', 'system/cache/');
+            define('DIR_DOWNLOAD', 'download/');
+            define('DIR_LOGS', 'system/logs/');
 
             // DB
             define('DB_DRIVER', '" . $db[$active_group]['dbdriver'] ."');
@@ -73,7 +73,7 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
             define('DB_USERNAME', '" . $db[$active_group]['username'] ."');
             define('DB_PASSWORD', '" . $db[$active_group]['password'] ."');
             define('DB_DATABASE',  '" . $this->domainName ."');
-            define('DB_PREFIX', '');
+            define('DB_PREFIX', 'oc_');
             ";
         
         $config = '<?php'.
