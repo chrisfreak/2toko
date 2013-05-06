@@ -2,7 +2,7 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} !^(www\.) [NC]
 RewriteCond %{HTTP_HOST} ^(.+)\.localhost\.com$ [NC]
 RewriteCond %1:%{REQUEST_URI} !^([^:]+):/\1/
-RewriteCond %{HTTP_HOST} ^(.+)\.sukur\.in$ [NC]
+RewriteCond %{HTTP_HOST} ^(.+)\.localhost\.com$ [NC]
 RewriteCond %{DOCUMENT_ROOT}/tokos/%1%{REQUEST_URI} -f [OR]
 RewriteCond %{DOCUMENT_ROOT}/tokos/%1%{REQUEST_URI} -d
 RewriteRule ^(.*)$ /tokos/%1/$1 [L,P]
@@ -11,4 +11,4 @@ RewriteCond %{HTTP_HOST} ^(www\.)?localhost\.com$
 RewriteCond $1 !^(index\.php|images|robots\.txt)
 RewriteRule ^(.*)$ /index.php/$1 [L]
 
-ErrorDocument 404 /404.html
+#ErrorDocument 404 /404.html
