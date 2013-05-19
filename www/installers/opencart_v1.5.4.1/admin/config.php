@@ -1,32 +1,32 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'http://localhost/installers/opencart_v1.5.4.1/admin/');
-define('HTTP_CATALOG', 'http://localhost/installers/opencart_v1.5.4.1/');
-define('HTTP_IMAGE', 'http://localhost/installers/opencart_v1.5.4.1/image/');
+define('HTTP_SERVER', 'http://{subdomain}.{domain}/admin/');
+define('HTTP_CATALOG', 'http://{subdomain}.{domain}/');
+define('HTTP_IMAGE', 'http://{subdomain}.{domain}/image/');
 
 // HTTPS
-define('HTTPS_SERVER', 'http://localhost/installers/opencart_v1.5.4.1/admin/');
-define('HTTPS_CATALOG', 'http://localhost/installers/opencart_v1.5.4.1/');
-define('HTTPS_IMAGE', 'http://localhost/installers/opencart_v1.5.4.1/image/');
+define('HTTPS_SERVER', 'http://{subdomain}.{domain}/admin/');
+define('HTTPS_CATALOG', 'http://{subdomain}.{domain}/');
+define('HTTPS_IMAGE', 'http://{subdomain}.{domain}/image/');
 
 // DIR
-define('DIR_APPLICATION', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/admin/');
-define('DIR_SYSTEM', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/system/');
-define('DIR_DATABASE', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/system/database/');
-define('DIR_LANGUAGE', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/admin/language/');
-define('DIR_TEMPLATE', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/admin/view/template/');
-define('DIR_CONFIG', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/system/config/');
-define('DIR_IMAGE', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/image/');
-define('DIR_CACHE', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/system/cache/');
-define('DIR_DOWNLOAD', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/download/');
-define('DIR_LOGS', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/system/logs/');
-define('DIR_CATALOG', 'E:\EasyPHP-5.3.8.1\www\installers\opencart_v1.5.4.1/catalog/');
+define('DIR_APPLICATION', 'admin/');
+define('DIR_SYSTEM', 'system/');
+define('DIR_DATABASE', 'system/database/');
+define('DIR_LANGUAGE', 'admin/language/');
+define('DIR_TEMPLATE', 'admin/view/template/');
+define('DIR_CONFIG', 'system/config/');
+define('DIR_IMAGE', 'image/');
+define('DIR_CACHE', 'system/cache/');
+define('DIR_DOWNLOAD', 'download/');
+define('DIR_LOGS', 'system/logs/');
+define('DIR_CATALOG', 'catalog/');
 
 // DB
-define('DB_DRIVER', 'mysql');
-define('DB_HOSTNAME', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_DATABASE', 'opencart');
-define('DB_PREFIX', '');
+define('DB_DRIVER', '{dbDriver}');
+define('DB_HOSTNAME', '{dbHost}');
+define('DB_USERNAME', '{dbUsername}');
+define('DB_PASSWORD', '{dbPass}');
+define('DB_DATABASE', '{dbName}');
+define('DB_PREFIX', '{dbPrefix}');
 ?>

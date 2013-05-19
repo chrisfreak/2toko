@@ -45,47 +45,53 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
     function configureCMS() {
         include(APPPATH . '/config/database.php');
         
-        $config = "
-            // HTTP
-            define('HTTP_SERVER', 'http://$this->domainName.$this->serverDomain/');
-            define('HTTP_IMAGE', 'http://$this->domainName.$this->serverDomain/image/');
-            define('HTTP_ADMIN', 'http://$this->domainName.$this->serverDomain/admin/');
-
-            // HTTPS
-            define('HTTPS_SERVER', 'https://$this->domainName.$this->serverDomain/');
-            define('HTTPS_IMAGE', 'https://$this->domainName.$this->serverDomain/image/');
-
-            // DIR
-            define('DIR_APPLICATION', 'catalog/');
-            define('DIR_SYSTEM', 'system/');
-            define('DIR_DATABASE', 'system/database/');
-            define('DIR_LANGUAGE', 'catalog/language/');
-            define('DIR_TEMPLATE', 'catalog/view/theme/');
-            define('DIR_CONFIG', 'system/config/');
-            define('DIR_IMAGE', 'image/');
-            define('DIR_CACHE', 'system/cache/');
-            define('DIR_DOWNLOAD', 'download/');
-            define('DIR_LOGS', 'system/logs/');
-
-            // DB
-            define('DB_DRIVER', '" . $db[$active_group]['dbdriver'] ."');
-            define('DB_HOSTNAME', '" . $db[$active_group]['hostname'] ."');
-            define('DB_USERNAME', '" . $db[$active_group]['username'] ."');
-            define('DB_PASSWORD', '" . $db[$active_group]['password'] ."');
-            define('DB_DATABASE',  '" . $db[$active_group]['toko_dbprefix'] . '_' . $this->domainName ."');
-            define('DB_PREFIX', 'oc_');
-            ";
+        // Frontend config
+        $configStringFrontend = file_get_contents($this->cms->installation . '/config.php');       
+        //$configStringFrontend = $this->replaceConfigStrings($configStringFrontend);
+        $configStringFrontend = str_replace('{subdomain}', $this->domainName, $configStringFrontend);
+        $configStringFrontend = str_replace('{domain}', $this->serverDomain, $configStringFrontend);
+        $configStringFrontend = str_replace('{dbDriver}', $db[$active_group]['dbdriver'], $configStringFrontend);
+        $configStringFrontend = str_replace('{dbHost}', $db[$active_group]['hostname'], $configStringFrontend);
+        $configStringFrontend = str_replace('{dbUsername}', $db[$active_group]['username'], $configStringFrontend);
+        $configStringFrontend = str_replace('{dbPass}', $db[$active_group]['password'], $configStringFrontend);
+        $configStringFrontend = str_replace('{dbName}', $db[$active_group]['toko_dbprefix'] . $this->domainName, $configStringFrontend);
+        $configStringFrontend = str_replace('{dbPrefix}', 'oc_', $configStringFrontend);
         
-        $config = '<?php'.
-            $config .
-            '?>';
+        $configPathFrontend = $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . "/config.php";
+        $fHandlerFrontend = fopen($configPathFrontend, 'w') or die("Cannot open the following file: $configPathFrontend");
+        fwrite($fHandlerFrontend, $configStringFrontend);
+        fclose($fHandlerFrontend);
         
-        $filePath = $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . "/config.php";
-        $fHandler = fopen($filePath, 'w') or die("Cannot open the following file: $filePath");
-        fwrite($fHandler, $config);
-        fclose($fHandler);
-
+        // Admin config
+        $configStringAdmin = file_get_contents($this->cms->installation . '/admin/config.php');       
+        //$configStringAdmin = $this->replaceConfigStrings($configStringAdmin);
+        $configStringAdmin = str_replace('{subdomain}', $this->domainName, $configStringAdmin);
+        $configStringAdmin = str_replace('{domain}', $this->serverDomain, $configStringAdmin);
+        $configStringAdmin = str_replace('{dbDriver}', $db[$active_group]['dbdriver'], $configStringAdmin);
+        $configStringAdmin = str_replace('{dbHost}', $db[$active_group]['hostname'], $configStringAdmin);
+        $configStringAdmin = str_replace('{dbUsername}', $db[$active_group]['username'], $configStringAdmin);
+        $configStringAdmin = str_replace('{dbPass}', $db[$active_group]['password'], $configStringAdmin);
+        $configStringAdmin = str_replace('{dbName}', $db[$active_group]['toko_dbprefix'] . $this->domainName, $configStringAdmin);
+        $configStringAdmin = str_replace('{dbPrefix}', 'oc_', $configStringAdmin);
+        
+        $configPathAdmin = $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . "/admin/config.php";
+        $fHandlerAdmin = fopen($configPathFrontend, 'w') or die("Cannot open the following file: $configPathAdmin");
+        fwrite($fHandlerAdmin, $configStringAdmin);
+        fclose($fHandlerAdmin);
         return true;
+    }
+    
+    private function replaceConfigStrings($config) {
+        include(APPPATH . '/config/database.php');
+        
+        $config = str_replace('{subdomain}', $this->domainName, $config);
+        $config = str_replace('{domain}', $this->serverDomain, $config);
+        $config = str_replace('{dbDriver}', $db[$active_group]['dbdriver'], $config);
+        $config = str_replace('{dbHost}', $db[$active_group]['hostname'], $config);
+        $config = str_replace('{dbUsername}', $db[$active_group]['username'], $config);
+        $config = str_replace('{dbPass}', $db[$active_group]['password'], $config);
+        $config = str_replace('{dbName}', $db[$active_group]['toko_dbprefix'] . $this->domainName, $config);
+        $config = str_replace('{dbPrefix}', 'oc_', $config);
     }
 
 }

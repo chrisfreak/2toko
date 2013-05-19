@@ -52,7 +52,7 @@ class CMSSelector implements ICMSSelector {
         
         if (!$cmsCreator->createDatabase() || !$cmsCreator->createFiles() || !$cmsCreator->configureCMS()) {
             return false;
-            exit;
+            exit('Something went wrong');
         }
 
         return true;
