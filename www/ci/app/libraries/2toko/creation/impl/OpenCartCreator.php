@@ -47,15 +47,7 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
         
         // Frontend config
         $configStringFrontend = file_get_contents($this->cms->installation . '/config.php');       
-        //$configStringFrontend = $this->replaceConfigStrings($configStringFrontend);
-        $configStringFrontend = str_replace('{subdomain}', $this->domainName, $configStringFrontend);
-        $configStringFrontend = str_replace('{domain}', $this->serverDomain, $configStringFrontend);
-        $configStringFrontend = str_replace('{dbDriver}', $db[$active_group]['dbdriver'], $configStringFrontend);
-        $configStringFrontend = str_replace('{dbHost}', $db[$active_group]['hostname'], $configStringFrontend);
-        $configStringFrontend = str_replace('{dbUsername}', $db[$active_group]['username'], $configStringFrontend);
-        $configStringFrontend = str_replace('{dbPass}', $db[$active_group]['password'], $configStringFrontend);
-        $configStringFrontend = str_replace('{dbName}', $db[$active_group]['toko_dbprefix'] . $this->domainName, $configStringFrontend);
-        $configStringFrontend = str_replace('{dbPrefix}', 'oc_', $configStringFrontend);
+        $configStringFrontend = $this->replaceConfigStrings($configStringFrontend);
         
         $configPathFrontend = $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . "/config.php";
         $fHandlerFrontend = fopen($configPathFrontend, 'w') or die("Cannot open the following file: $configPathFrontend");
@@ -64,18 +56,10 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
         
         // Admin config
         $configStringAdmin = file_get_contents($this->cms->installation . '/admin/config.php');       
-        //$configStringAdmin = $this->replaceConfigStrings($configStringAdmin);
-        $configStringAdmin = str_replace('{subdomain}', $this->domainName, $configStringAdmin);
-        $configStringAdmin = str_replace('{domain}', $this->serverDomain, $configStringAdmin);
-        $configStringAdmin = str_replace('{dbDriver}', $db[$active_group]['dbdriver'], $configStringAdmin);
-        $configStringAdmin = str_replace('{dbHost}', $db[$active_group]['hostname'], $configStringAdmin);
-        $configStringAdmin = str_replace('{dbUsername}', $db[$active_group]['username'], $configStringAdmin);
-        $configStringAdmin = str_replace('{dbPass}', $db[$active_group]['password'], $configStringAdmin);
-        $configStringAdmin = str_replace('{dbName}', $db[$active_group]['toko_dbprefix'] . $this->domainName, $configStringAdmin);
-        $configStringAdmin = str_replace('{dbPrefix}', 'oc_', $configStringAdmin);
+        $configStringAdmin = $this->replaceConfigStrings($configStringAdmin);
         
         $configPathAdmin = $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . "/admin/config.php";
-        $fHandlerAdmin = fopen($configPathFrontend, 'w') or die("Cannot open the following file: $configPathAdmin");
+        $fHandlerAdmin = fopen($configPathAdmin, 'w') or die("Cannot open the following file: $configPathAdmin");
         fwrite($fHandlerAdmin, $configStringAdmin);
         fclose($fHandlerAdmin);
         return true;
@@ -92,6 +76,8 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
         $config = str_replace('{dbPass}', $db[$active_group]['password'], $config);
         $config = str_replace('{dbName}', $db[$active_group]['toko_dbprefix'] . $this->domainName, $config);
         $config = str_replace('{dbPrefix}', 'oc_', $config);
+        
+        return $config;
     }
 
 }
