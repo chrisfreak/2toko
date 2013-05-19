@@ -9,16 +9,16 @@ define('HTTPS_SERVER', 'http://{subdomain}.{domain}/');
 define('HTTPS_IMAGE', 'http://{subdomain}.{domain}/image/');
 
 // DIR
-define('DIR_APPLICATION', 'catalog/');
-define('DIR_SYSTEM', 'system/');
-define('DIR_DATABASE', 'system/database/');
-define('DIR_LANGUAGE', 'catalog/language/');
-define('DIR_TEMPLATE', 'catalog/view/theme/');
-define('DIR_CONFIG', 'system/config/');
-define('DIR_IMAGE', 'image/');
-define('DIR_CACHE', 'system/cache/');
-define('DIR_DOWNLOAD', 'download/');
-define('DIR_LOGS', 'logs/');
+define('DIR_APPLICATION', '{basePath}/catalog/');
+define('DIR_SYSTEM', '{basePath}/system/');
+define('DIR_DATABASE', '{basePath}/system/database/');
+define('DIR_LANGUAGE', '{basePath}/catalog/language/');
+define('DIR_TEMPLATE', '{basePath}/catalog/view/theme/');
+define('DIR_CONFIG', '{basePath}/system/config/');
+define('DIR_IMAGE', '{basePath}/image/');
+define('DIR_CACHE', '{basePath}/system/cache/');
+define('DIR_DOWNLOAD', '{basePath}/download/');
+define('DIR_LOGS', '{basePath}/logs/');
 
 // DB
 define('DB_DRIVER', '{dbDriver}');

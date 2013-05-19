@@ -43,8 +43,6 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
     }
     
     function configureCMS() {
-        include(APPPATH . '/config/database.php');
-        
         // Frontend config
         $configStringFrontend = file_get_contents($this->cms->installation . '/config.php');       
         $configStringFrontend = $this->replaceConfigStrings($configStringFrontend);
@@ -70,6 +68,7 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
         
         $config = str_replace('{subdomain}', $this->domainName, $config);
         $config = str_replace('{domain}', $this->serverDomain, $config);
+        $config = str_replace('{basePath}', $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath", $config);
         $config = str_replace('{dbDriver}', $db[$active_group]['dbdriver'], $config);
         $config = str_replace('{dbHost}', $db[$active_group]['hostname'], $config);
         $config = str_replace('{dbUsername}', $db[$active_group]['username'], $config);
