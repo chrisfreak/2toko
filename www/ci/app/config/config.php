@@ -357,6 +357,11 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+//2toko configs
+$config['2toko_domain'] = 'localhost.com';
+$config['2toko_tokosPath'] = 'tokos/';
+$config['2toko_installersPath'] = 'installers/';
+
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

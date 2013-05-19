@@ -73,12 +73,23 @@ class DBUtil {
         }
     }
     
-    private function newPDOConnection() {
+    /**
+     * Don't use this too often. It was meant to be private
+     * @return \PDO
+     */
+    public function newPDOConnection() {
         $pdo = new PDO("mysql:host=$this->host;dbname=$this->account", $this->username, $this->password);
         return $pdo;
     }
 
-    private function execute($prepare) {
+    /**
+     * This function execute a sql query using PDO prepare
+     * Don't use this too often. It was meant to be private
+     * @param type $prepare from PDO connection (contains mysql query)
+     * @return result of the query
+     * @throws DBException
+     */
+    public function execute($prepare) {
         if(isset($prepare)) {
             $exec = $prepare->execute();
             $errors = $prepare->errorInfo();

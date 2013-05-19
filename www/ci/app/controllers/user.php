@@ -100,7 +100,7 @@ class User extends CI_Controller {
         
         $selectedCMS = $this->findCMS($cmsId);
         
-        $this->cmsselector->init($this->data['user']->id, $selectedCMS, $domainName, $username, $password, $username);
+        $this->cmsselector->init($this->data['user'], $selectedCMS, $domainName, $username, $password, $username);
         $processed = $this->cmsselector->process();
         if ($processed) {
             echo 'yatta!';

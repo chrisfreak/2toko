@@ -13,7 +13,8 @@ require_once TOKO_LIB_PATH . 'utils/DBUtil.php';
 class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
     
     
-    public $checkCMSname = 'opencart';
+    public $checkCMSname    = 'opencart';
+    public $tablePrefix     = 'oc_';
     
     function createFiles() {
         try {
@@ -29,8 +30,15 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
     function createDatabase() {
         if (isset($this->dbConnection)) {
             try {
+                // Create database and populate
                 $this->dbConnection->createDatabase($this->domainName, true);
                 $this->dbConnection->readSQLFile($this->cms->installation . '/install.sql');
+                
+                // Insert admin user
+                $query = 'INSERT INTO ' . $this->tablePrefix . 'user(`user_group_id`, `username`, `password`, `salt`, `firstname`, `lastname`, `email`, `code`, `ip`, `status`, `date_added`) ';
+                $query .= "VALUES(1, '$this->admin', '$this->password', '', '" . $this->user->first_name . "', '" . $this->user->last_name . "', '" . $this->user->email . "', 0, '" . $this->user->ip_address . "', 1, NOW())";
+                $prepare = $this->dbConnection->newPDOConnection()->prepare($query);
+                $this->dbConnection->execute($prepare);
             } catch (DBException $e) {
                 return false;
             }
@@ -74,7 +82,7 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
         $config = str_replace('{dbUsername}', $db[$active_group]['username'], $config);
         $config = str_replace('{dbPass}', $db[$active_group]['password'], $config);
         $config = str_replace('{dbName}', $db[$active_group]['toko_dbprefix'] . $this->domainName, $config);
-        $config = str_replace('{dbPrefix}', 'oc_', $config);
+        $config = str_replace('{dbPrefix}', $this->tablePrefix, $config);
         
         return $config;
     }
