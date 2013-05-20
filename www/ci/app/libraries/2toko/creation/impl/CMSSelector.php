@@ -48,6 +48,9 @@ class CMSSelector implements ICMSSelector {
             case 'opencart':
                 $cmsCreator = new OpenCartCreator($this->user, $this->admin, $this->password, $this->cms, $this->domainName);
                 break;
+            case 'zencart':
+                $cmsCreator = new ZenCartCreator($this->user, $this->admin, $this->password, $this->cms, $this->domainName);
+                break;
         }
         
         if (!$cmsCreator->createDatabase() || !$cmsCreator->createFiles() || !$cmsCreator->configureCMS()) {
