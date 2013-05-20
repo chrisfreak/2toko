@@ -36,32 +36,36 @@ class ZenCartCreator extends CMSGenericCreator implements ICMSCreator {
                 
                 // Modify zen configuration
                 // Store name //
-                $query1 = 'UPDATE zen_configuration SET configuration_value = "' . $this->domainName . '" WHERE configuration_id = 1';
+                $query = array();
+                $query[0] = 'UPDATE zen_configuration SET configuration_value = "' . $this->domainName . '" WHERE configuration_id = 1';
                 // Store owner //
-                $query2 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->first_name . '" WHERE configuration_id = 2';
+                $query[1] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->first_name . '" WHERE configuration_id = 2';
                 // Emails //
-                $query3 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 258';
-                $query4 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 259';
-                $query5 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 262';
-                $query6 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 264';
-                $query7 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 266';
-                $query8 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 268';
-                $query9 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 270';
-                $query10 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 272';
-                $query11 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 274';
-                $query12 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 278';
+                $query[2] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 258';
+                $query[3] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 259';
+                $query[4] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 262';
+                $query[5] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 264';
+                $query[6] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 266';
+                $query[7] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 268';
+                $query[8] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 270';
+                $query[9] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 272';
+                $query[10] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 274';
+                $query[11] = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 278';
                 // Session directory //
-                $query13 = 'UPDATE zen_configuration SET configuration_value = "' . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . '/cache" WHERE configuration_id = 296';
+                $query[12] = 'UPDATE zen_configuration SET configuration_value = "' . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . '/cache" WHERE configuration_id = 296';
                 // Update zen admin //
                 $stringUtil = new StringUtil($this->password);
                 $zenPass = $stringUtil->generateZencartPass();
-                $query14 = 'UPDATE zen_admin SET admin_name = "' . $this->user->first_name . '", 
+                $query[13] = 'UPDATE zen_admin SET admin_name = "' . $this->user->first_name . '", 
                                                 admin_email = "'. $this->user->email .'", 
                                                 admin_pass = "' . $zenPass .'" 
                                               WHERE admin_id = 1';
                 
-                $prepare = $this->dbConnection->newPDOConnection()->prepare($query);
-                $this->dbConnection->execute($prepare);
+                foreach ($query as &$str) {
+                    $prepare = $this->dbConnection->newPDOConnection()->prepare($str);
+                    $this->dbConnection->execute($prepare);
+                }
+                
             } catch (DBException $e) {
                 return false;
             }
@@ -91,6 +95,15 @@ class ZenCartCreator extends CMSGenericCreator implements ICMSCreator {
         $fHandlerAdmin = fopen($configPathAdmin, 'w') or die("Cannot open the following file: $configPathAdmin");
         fwrite($fHandlerAdmin, $configStringAdmin);
         fclose($fHandlerAdmin);
+        
+        // Other
+        $configStringOther = file_get_contents($this->cms->installation . '/nddbc.html');
+        $configStringOther = $this->replaceConfigStrings($configStringOther);
+        
+        $configPathOther = $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . "/nddbc.html";
+        $fHandlerOther = fopen($configPathOther, 'w') or die("Cannot open the following file: $configPathOther");
+        fwrite($fHandlerOther, $configStringOther);
+        fclose($fHandlerOther);
         return true;
     }
     

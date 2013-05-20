@@ -9,6 +9,7 @@
 require_once TOKO_LIB_PATH . 'utils/StringUtil.php';
 require_once TOKO_LIB_PATH . 'creation/abstr/ICMSSelector.php';
 require_once TOKO_LIB_PATH . 'creation/impl/OpenCartCreator.php';
+require_once TOKO_LIB_PATH . 'creation/impl/ZenCartCreator.php';
 
 class CMSSelector implements ICMSSelector {
     
@@ -43,7 +44,7 @@ class CMSSelector implements ICMSSelector {
         }
         
         $cmsCreator;
-        switch($this->cms) {
+        switch($this->cms->name) {
             default:
             case 'opencart':
                 $cmsCreator = new OpenCartCreator($this->user, $this->admin, $this->password, $this->cms, $this->domainName);

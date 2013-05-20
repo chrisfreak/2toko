@@ -31,7 +31,7 @@ class CMSGenericCreator {
 
             $this->domainName = $domainName;
             $this->dbConnection = new DBUtil();
-        
+            
             $this->init();
         }
     
