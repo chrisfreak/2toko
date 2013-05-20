@@ -47,7 +47,7 @@ class OpenCartCreator extends CMSGenericCreator implements ICMSCreator {
         } else {
             exit('DB Connection not found!');
             return false;
-        }        
+        }
     }
     
     function configureCMS() {
