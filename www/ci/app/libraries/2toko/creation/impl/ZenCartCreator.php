@@ -10,6 +10,7 @@ require_once TOKO_LIB_PATH . 'creation/abstr/ICMSCreator.php';
 require_once TOKO_LIB_PATH . 'creation/impl/CMSGenericCreator.php';
 require_once TOKO_LIB_PATH . 'utils/FileUtil.php';
 require_once TOKO_LIB_PATH . 'utils/DBUtil.php';
+require_once TOKO_LIB_PATH . 'utils/StringUtil.php';
 class ZenCartCreator extends CMSGenericCreator implements ICMSCreator {
     
     public $checkCMSname    = 'zencart';
@@ -34,8 +35,31 @@ class ZenCartCreator extends CMSGenericCreator implements ICMSCreator {
                 $this->dbConnection->readSQLFile($this->cms->installation . '/install.sql');
                 
                 // Modify zen configuration
-                $query = 'INSERT INTO ' . $this->tablePrefix . 'user(`user_group_id`, `username`, `password`, `salt`, `firstname`, `lastname`, `email`, `code`, `ip`, `status`, `date_added`) ';
-                $query .= "VALUES(1, '$this->admin', '$this->password', '', '" . $this->user->first_name . "', '" . $this->user->last_name . "', '" . $this->user->email . "', 0, '" . $this->user->ip_address . "', 1, NOW())";
+                // Store name //
+                $query1 = 'UPDATE zen_configuration SET configuration_value = "' . $this->domainName . '" WHERE configuration_id = 1';
+                // Store owner //
+                $query2 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->first_name . '" WHERE configuration_id = 2';
+                // Emails //
+                $query3 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 258';
+                $query4 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 259';
+                $query5 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 262';
+                $query6 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 264';
+                $query7 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 266';
+                $query8 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 268';
+                $query9 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 270';
+                $query10 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 272';
+                $query11 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 274';
+                $query12 = 'UPDATE zen_configuration SET configuration_value = "' . $this->user->email . '" WHERE configuration_id = 278';
+                // Session directory //
+                $query13 = 'UPDATE zen_configuration SET configuration_value = "' . $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . '/cache" WHERE configuration_id = 296';
+                // Update zen admin //
+                $stringUtil = new StringUtil($this->password);
+                $zenPass = $stringUtil->generateZencartPass();
+                $query14 = 'UPDATE zen_admin SET admin_name = "' . $this->user->first_name . '", 
+                                                admin_email = "'. $this->user->email .'", 
+                                                admin_pass = "' . $zenPass .'" 
+                                              WHERE admin_id = 1';
+                
                 $prepare = $this->dbConnection->newPDOConnection()->prepare($query);
                 $this->dbConnection->execute($prepare);
             } catch (DBException $e) {
@@ -51,10 +75,10 @@ class ZenCartCreator extends CMSGenericCreator implements ICMSCreator {
 
     public function configureCMS() {
         // Zen front configuration
-        $configStringFrontend = file_get_contents($this->cms->installation . '/config.php');       
+        $configStringFrontend = file_get_contents($this->cms->installation . '/includes/configure.php');       
         $configStringFrontend = $this->replaceConfigStrings($configStringFrontend);
         
-        $configPathFrontend = $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . "/config.php";
+        $configPathFrontend = $_SERVER['DOCUMENT_ROOT'] . "/$this->tokoPath" . "/includes/configure.php";
         $fHandlerFrontend = fopen($configPathFrontend, 'w') or die("Cannot open the following file: $configPathFrontend");
         fwrite($fHandlerFrontend, $configStringFrontend);
         fclose($fHandlerFrontend);

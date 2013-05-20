@@ -14,8 +14,8 @@
 // Define the webserver and path parameters
   // HTTP_SERVER is your Main webserver: eg-http://www.your_domain.com
   // HTTPS_SERVER is your Secure webserver: eg-https://www.your_domain.com
-  define('HTTP_SERVER', 'http://localhost.com');
-  define('HTTPS_SERVER', 'http://localhost.com');
+  define('HTTP_SERVER', 'http://{subdomain}.{domain}');
+  define('HTTPS_SERVER', 'http://{subdomain}.{domain}');
 
   // Use secure webserver for checkout procedure?
   define('ENABLE_SSL', 'false');
@@ -23,8 +23,8 @@
 // NOTE: be sure to leave the trailing '/' at the end of these lines if you make changes!
 // * DIR_WS_* = Webserver directories (virtual/URL)
   // these paths are relative to top of your webspace ... (ie: under the public_html or httpdocs folder)
-  define('DIR_WS_CATALOG', '/installers/zencart_v1.5.1/');
-  define('DIR_WS_HTTPS_CATALOG', '/installers/zencart_v1.5.1/');
+  define('DIR_WS_CATALOG', '{basePath}');
+  define('DIR_WS_HTTPS_CATALOG', '{basePath}');
 
   define('DIR_WS_IMAGES', 'images/');
   define('DIR_WS_INCLUDES', 'includes/');
@@ -39,10 +39,10 @@
 
 // * DIR_FS_* = Filesystem directories (local/physical)
   //the following path is a COMPLETE path to your Zen Cart files. eg: /var/www/vhost/accountname/public_html/store/
-  define('DIR_FS_CATALOG', 'F:/EasyPHP-DevServer-13.1VC9/data/2toko/www/installers/zencart_v1.5.1/');
+  define('DIR_FS_CATALOG', '{basePath}');
 
   //the following path is a COMPLETE path to the /logs/ folder  eg: /var/www/vhost/accountname/public_html/store/logs ... and no trailing slash
-  define('DIR_FS_LOGS', 'F:/EasyPHP-DevServer-13.1VC9/data/2toko/www/installers/zencart_v1.5.1/logs');
+  define('DIR_FS_LOGS', '{basePath}');
 
   define('DIR_FS_DOWNLOAD', DIR_FS_CATALOG . 'download/');
   define('DIR_FS_DOWNLOAD_PUBLIC', DIR_FS_CATALOG . 'pub/');
@@ -51,13 +51,13 @@
   define('DIR_FS_EMAIL_TEMPLATES', DIR_FS_CATALOG . 'email/');
 
 // define our database connection
-  define('DB_TYPE', 'mysql');
-  define('DB_PREFIX', 'zen_');
+  define('DB_TYPE', '{dbDriver}');
+  define('DB_PREFIX', '{dbPrefix}');
   define('DB_CHARSET', 'utf8');
-  define('DB_SERVER', 'localhost');
-  define('DB_SERVER_USERNAME', 'root');
-  define('DB_SERVER_PASSWORD', '');
-  define('DB_DATABASE', 'zencart');
+  define('DB_SERVER', '{dbHost}');
+  define('DB_SERVER_USERNAME', '{dbUsername}');
+  define('DB_SERVER_PASSWORD', '{dbPass}');
+  define('DB_DATABASE', '{dbName}');
 
   // The next 2 "defines" are for SQL cache support.
   // For SQL_CACHE_METHOD, you can select from:  none, database, or file
@@ -65,6 +65,6 @@
   // or webserver user has write privileges (chmod 666 or 777). We recommend using the "cache" folder inside the Zen Cart folder
   // ie: /path/to/your/webspace/public_html/zen/cache   -- leave no trailing slash  
   define('SQL_CACHE_METHOD', 'file'); 
-  define('DIR_FS_SQL_CACHE', 'F:/EasyPHP-DevServer-13.1VC9/data/2toko/www/installers/zencart_v1.5.1/cache');
+  define('DIR_FS_SQL_CACHE', '{basePath}/cache');
 
 // EOF

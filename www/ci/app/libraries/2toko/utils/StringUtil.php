@@ -89,6 +89,21 @@ class StringUtil {
         
         return $isValid;
     }
+    
+    public function generateZencartPass() {
+        // generate salt
+        $salt = $this->generateRandomString(2);
+        return md5($salt . $this->str) . ':' . $salt;
+    }
+    
+    public function generateRandomString($length = 5) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
+    }
 }
 
 ?>

@@ -79,7 +79,7 @@
   // or webserver user has write privileges (chmod 666 or 777). We recommend using the "cache" folder inside the Zen Cart folder
   // ie: /path/to/your/webspace/public_html/zen/cache   -- leave no trailing slash  
   define('SQL_CACHE_METHOD', 'file'); 
-  define('DIR_FS_SQL_CACHE', 'F:/EasyPHP-DevServer-13.1VC9/data/2toko/www/installers/zencart_v1.5.1/cache');
+  define('DIR_FS_SQL_CACHE', '{basePath}/cache');
 
 
 // Define the webserver and path parameters
